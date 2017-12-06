@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# add my display token to current user
+# Example command : ~/username/scripts/setmyxdisplay
+# Say you "sudo su - " into root, and you want to run a x-program to your display,
+# if you run ~yourusername/scriptdir/setmyxdisplay , then this will allow you
+# run x programs to your x-display (provided that you have that you have a 
+# X-server running correctly.
+
+echo "command: $0"
+SCRIPTPATH=$(dirname $0)
+USERHOME=${SCRIPTPATH%/*}
+#echo $SCRIPTPATH $USERHOME
+if [ "$1" != "" ] ; then
+	XUSER=$1
+fi
+xauth add $(xauth -f ${USERHOME}/.Xauthority list | tail -1)
